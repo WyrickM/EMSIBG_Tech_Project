@@ -10,6 +10,7 @@ import './App.css';
 import * as React from "react";
 import { Summary } from "./constants";
 
+// Occupation Summary component, being used in App.tsx
 const OccupationSummary: React.FC<Summary> = ({jobs, jobs_growth, earnings}) => {
 
     const percentage:number = Math.round((jobs.regional / jobs.national_avg)*100);

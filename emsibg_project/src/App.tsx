@@ -23,7 +23,7 @@ import TrendGraph from './TrendGraph';
 import IndustryEmploy from './IndustryEmploy';
 
 
-
+// main component of webpage
 const App = (): JSX.Element => {
   interface ApiData {
     occupation: Occupation | undefined;
@@ -49,7 +49,7 @@ const App = (): JSX.Element => {
       })
   }
 
-
+  // need to fetch data from the API on every page load
   React.useEffect(() => {
     fetchData();
   }, []);
@@ -100,7 +100,6 @@ const App = (): JSX.Element => {
           ): null}
         </div>
       </div>  
-
     </>
   );
 }

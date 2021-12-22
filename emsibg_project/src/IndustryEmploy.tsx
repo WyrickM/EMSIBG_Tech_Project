@@ -5,14 +5,21 @@
 *
 * Created by Mantz Wyrick 
 * On 12/20/2021
+*
+* Decided to use Ant design table because I was
+* running out of time.
+*
+* More work to be done in this file:
+*   Styling of the table
+*
 *****************************************************/
 
 import './App.css';
 import * as React from "react";
 import { Table } from 'antd';
 import { EmployingIndustries } from "./constants";
-import { ColumnsType } from 'antd/lib/table';
 
+// Industyr Employ component, being used in App.tsx
 const IndustryEmploy: React.FC<EmployingIndustries> = ({year, jobs, industries}) => {
   interface TableData {
     industryTitle: string;
@@ -23,6 +30,7 @@ const IndustryEmploy: React.FC<EmployingIndustries> = ({year, jobs, industries})
 
   const [tableData, setTableData] = React.useState<TableData[] | undefined>(undefined);
 
+  // function to get all the necessary data for the table
   const formatTableData = () => {
     const data: TableData[] = industries.map((x) => {
       return {
@@ -36,6 +44,7 @@ const IndustryEmploy: React.FC<EmployingIndustries> = ({year, jobs, industries})
     setTableData(data);
   };
 
+  // columns of the table
   const columns = [
     {
       title: "Industry",
