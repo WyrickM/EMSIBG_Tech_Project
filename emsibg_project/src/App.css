@@ -19,6 +19,10 @@
   padding-right: 25px;
 }
 
+.App-bottom-section {
+  padding: 25px;
+}
+
 .App-subtitles {
   margin: 0;
   border-bottom: 2px solid lightgray;
@@ -34,4 +38,14 @@
   content: "";
   display: table;
   clear: both;
+}
+
+.Graph-plot {
+  height: 100%;
+  width: 100%;
+}
+
+.Table {
+  height: 100%;
+  width: 100%;
 }

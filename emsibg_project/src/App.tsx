@@ -14,15 +14,13 @@ import {fetchOverviewData} from "./OccupationOverview";
 import { 
   Occupation,
   Region,
-  Jobs,
-  JobsGrowth,
-  Earnings,
   Summary,
   TrendComparison,
-  Industries,
   EmployingIndustries
 } from './constants';
 import OccupationSummary from "./OccupationSummary";
+import TrendGraph from './TrendGraph';
+import IndustryEmploy from './IndustryEmploy';
 
 
 
@@ -37,9 +35,9 @@ const App = (): JSX.Element => {
 
   const [apiData, setApiData] = React.useState<ApiData>();
 
+  // get the data from the API 
   const fetchData = async () => {
     const r = await fetchOverviewData();
-
     const json = await r.json();
 
     setApiData({
@@ -49,14 +47,13 @@ const App = (): JSX.Element => {
         trendComparison: json.trend_comparison,
         employingIndustries: json.employing_industries,
       })
-
-      if(json.occupation)
-      {
-        <p>this is a test</p>
-      }
   }
 
-  window.onload = fetchData;  
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="App">
@@ -71,20 +68,36 @@ const App = (): JSX.Element => {
           <h4 className='App-subtitles'>Occupation Summary for {apiData?.occupation?.title}</h4> 
           { apiData?.summary ? (
             <OccupationSummary 
-            jobs={apiData.summary.jobs}
-            jobs_growth={apiData.summary.jobs_growth}
-            earnings={apiData.summary.earnings}
-          />
+              jobs={apiData.summary.jobs}
+              jobs_growth={apiData.summary.jobs_growth}
+              earnings={apiData.summary.earnings}
+            />
           ): null}
           
         </div>
 
         <div className='App-sections'>
           <h4 className='App-subtitles'>Regional Trends</h4> 
+          { apiData?.trendComparison ? (
+            <TrendGraph
+              start_year={apiData.trendComparison.start_year}
+              end_year={apiData.trendComparison.end_year}
+              regional={apiData.trendComparison.regional}
+              state={apiData.trendComparison.state}
+              nation={apiData.trendComparison.nation}
+            />
+          ) : null}
         </div>
 
-        <div className='App-sections'>
+        <div className='App-bottom-section'>
           <h4 className='App-subtitles'>Industries Employing {apiData?.occupation?.title}</h4> 
+          { apiData?.employingIndustries ? (
+            <IndustryEmploy 
+            year={apiData.employingIndustries.year}
+            jobs={apiData.employingIndustries.jobs}
+            industries={apiData.employingIndustries.industries} 
+            />
+          ): null}
         </div>
       </div>  
 
